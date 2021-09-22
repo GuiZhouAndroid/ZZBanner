@@ -1,12 +1,8 @@
 package com.zs.itking.zzbanner;
 
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,12 +31,12 @@ public class BannerActivity extends AppCompatActivity implements OnBannerItemCli
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner);
-        setFullScreen();
+
         loopLayout = findViewById(R.id.loop_layout);
         bannerBgContainer = findViewById(R.id.banner_bg_container);
 
         loopLayout.setLoop_ms(3000);//轮播的速度(毫秒)
-        loopLayout.setLoop_duration(400);//滑动的速率(毫秒)
+        loopLayout.setLoop_duration(500);//滑动的速率(毫秒)
         loopLayout.setScaleAnimation(true);// 设置是否需要动画
         loopLayout.setLoop_style(LoopStyle.Empty);//轮播的样式-默认empty
         loopLayout.setIndicatorLocation(IndicatorLocation.Center);//指示器位置-中Center
@@ -73,28 +69,14 @@ public class BannerActivity extends AppCompatActivity implements OnBannerItemCli
 
     @Override
     public void onBannerClick(int index, ArrayList<BannerInfo> banner) {
+        switch (index){
+            case 0:
+                Toast.makeText(this, "第一张图", Toast.LENGTH_SHORT).show();
+                break;
+            case 1:
+                Toast.makeText(this, "第二张图", Toast.LENGTH_SHORT).show();
+                break;
 
-    }
-
-
-    void setFullScreen() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window window = getWindow();
-            // Translucent status bar
-            window.setFlags(
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
         }
     }
 
